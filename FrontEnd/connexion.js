@@ -10,9 +10,7 @@ form.addEventListener("submit", async function (event) {
 
   await fetch("http://localhost:5678/api/users/login", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: { "Content-Type": "application/json" },
     body: bodyjson,
   })
     .then((response) => response.json())

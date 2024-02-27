@@ -420,6 +420,15 @@ input[type="submit"]{
 	align-items: center;
 	border-radius: 10px;
   }
+  .ajouterworks h3 {
+	margin-top: 0;
+  }
+  .fa-arrow-left {
+	margin: 25px;
+	align-self: flex-start;
+	font-size: 21px;
+	cursor: pointer;
+  }
   .ajoutphoto {
 	display: flex;
 	flex-direction: column;
@@ -428,7 +437,7 @@ input[type="submit"]{
 	background-color: #E8F1F6;
 	height: 169px;
 	margin: 10px;
-	padding: 10px;
+	padding: 0 10px;
   }
   .ajoutphoto button {
 	position: relative; /* Position relative pour que les éléments absolus soient positionnés par rapport à ce bouton */
@@ -478,6 +487,14 @@ input[type="submit"]{
 	padding-bottom: 50px;
 	border-bottom: solid 1px #B3B3B3;
   }
+  .photopreview {
+	position: absolute;
+	z-index: 2;
+  }
+  .previewimage {
+	max-width: 461px;
+	max-height: 169px;
+  }
   .classification label {
 	font-size: 14px;
 	font-weight: 500;
@@ -510,7 +527,7 @@ input[type="submit"]{
 	font-family: 'Syne';
 	font-weight: 700;
 	color: white;
-	background-color: #1D6154;
+	background-color: #A7A7A7;
 	padding: 10px 50px;
 	text-align: center;
 	border-radius: 60px ;

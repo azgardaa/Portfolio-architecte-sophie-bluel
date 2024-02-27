@@ -87,33 +87,38 @@ modalbtn.addEventListener("click", function (event) {
   modal.style.display = "flex";
   contenu1.style.display = "flex";
   contenu2.style.display = "none";
+});
 
-  async function modalworks(url) {
-    await fetch(url)
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        }
-      })
-      .then(function (works) {
-        document.querySelector(".gallerymodal").innerHTML = "";
-        genererworkmodal(works);
+async function modalworks(url) {
+  await fetch(url)
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+    })
+    .then(function (works) {
+      document.querySelector(".gallerymodal").innerHTML = "";
+      genererworkmodal(works);
+
+      /* gestion de la suppression des photos */
+
+      const btnsuppr = document.querySelectorAll(".fa-trash-can");
+      btnsuppr.forEach(async function (supprwork) {
+        supprwork.addEventListener("click", async function (event) {
+          event.preventDefault();
+          const data = JSON.parse(localStorage.getItem("data"));
+          fetch(`http://localhost:5678/api/works/${supprwork.value}`, {
+            method: "DELETE",
+            headers: { Authorization: `Bearer ${data.token}` },
+          });
+        });
       });
-  }
-  modalworks(url);
-});
+    });
+}
 
-boutonajout.addEventListener("click", function (event) {
-  event.preventDefault();
-  contenu2.style.display = "flex";
-  contenu1.style.display = "none";
-});
-const btnretour = document.querySelector(".fa-arrow-left");
-btnretour.addEventListener("click", function (event) {
-  event.preventDefault();
-  contenu1.style.display = "flex";
-  contenu2.style.display = "none";
-});
+modalworks(url);
+
+/* generation travaux modal*/
 
 function genererworkmodal(works) {
   for (let i = 0; i < works.length; i++) {
@@ -124,12 +129,30 @@ function genererworkmodal(works) {
     modalworkelement.src = works[i].imageUrl;
     const supprimerbtn = document.createElement("i");
     supprimerbtn.classList.add("fa-solid", "fa-trash-can");
+    supprimerbtn.value = works[i].id;
 
     modalworks.appendChild(modaldivwork);
     modaldivwork.appendChild(modalworkelement);
     modaldivwork.appendChild(supprimerbtn);
   }
 }
+
+/* bouton modal*/
+
+boutonajout.addEventListener("click", function (event) {
+  event.preventDefault();
+  contenu2.style.display = "flex";
+  contenu1.style.display = "none";
+  document.querySelector(".photopreview").innerHTML = "";
+  document.getElementById("Titre").value = "";
+  btnphoto.style.display = "block";
+});
+const btnretour = document.querySelector(".fa-arrow-left");
+btnretour.addEventListener("click", function (event) {
+  event.preventDefault();
+  contenu1.style.display = "flex";
+  contenu2.style.display = "none";
+});
 
 /* Evenement de fermeture*/
 
@@ -147,4 +170,23 @@ closeButtons.forEach(function (closeButton) {
   });
 });
 
-/* gestion de l'ajout de photo */
+/* gestion de l'ajout des photos */
+const file = document.querySelector(".file");
+const preview = document.querySelector(".photopreview");
+const btnphoto = document.querySelector(".btnphoto");
+
+file.addEventListener("change", function () {
+  if (this.files && this.files[0]) {
+    const reader = new FileReader();
+
+    reader.onload = function (e) {
+      const imgElement = document.createElement("img");
+      imgElement.src = e.target.result;
+      imgElement.classList.add("previewimage");
+      preview.innerHTML = "";
+      preview.appendChild(imgElement);
+    };
+    reader.readAsDataURL(this.files[0]);
+    btnphoto.style.display = "none";
+  }
+});
