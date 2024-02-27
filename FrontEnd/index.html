@@ -10,18 +10,25 @@
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
 	<script type="module" src="works.js"></script>
+	<script src="https://kit.fontawesome.com/332cac7602.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <header>
-	<a class="titre" href="/FrontEnd/index.html"><h1>Sophie Bluel <span>Architecte d'intérieur</span></h1></a>
-	<nav>
-		<ul>
-			<li><a href="#portfolio">projets</a></li></a>
-			<li><a href="#contact">contact</a></li>
-			<li><a href="/FrontEnd/connexion.html">login</a></li>
-			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
-		</ul>
-	</nav>
+	<div class="edition">
+		<a href="#"><i class="fa-solid fa-pen-to-square"></i><p> mode édition</p></a>
+	</div>
+	<div class="barrenav">
+		<a class="titre" href="/FrontEnd/index.html"><h1>Sophie Bluel <span>Architecte d'intérieur</span></h1></a>
+		<nav>
+			<ul>
+				<li><a href="#portfolio">projets</a></li></a>
+				<li><a href="#contact">contact</a></li>
+				<li class="login"><a href="/FrontEnd/connexion.html" >login</a></li>
+				<li class="logout"><a href="/FrontEnd/index.html">logout</a></li>
+				<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
+			</ul>
+		</nav>
+	</div>
 </header>
 <main>
 	<section id="introduction">
@@ -36,12 +43,15 @@
 		</article>
 	</section>
 	<section id="portfolio">
+		<div>
 		<h2>Mes Projets</h2>
+		<a href="" id="modalbtn"><i class="fa-solid fa-pen-to-square"></i> modifier</a>
+		</div>
 		<div class="boxbouton">
-			<button class="tous">Tous</button>
-			<button class="objets">Objets</button>
-			<button class="appartements">Appartements</button>
-			<button class="HR">Hôtels & restaurants</button>
+			<button class="btn" data-category="0">Tous</button>
+			<button class="btn" data-category="1">Objets</button>
+			<button class="btn" data-category="2">Appartements</button>
+			<button class="btn" data-category="3">Hôtels & restaurants</button>
 		</div>
 		<div class="gallery">
 		</div>
@@ -59,6 +69,44 @@
 			<input type="submit" value="Envoyer">
 		</form>
 	</section>
+	<div id="modal" class="modal">
+		<div class="modalcontent">
+			<div class="affichageworks">
+		  		<span class="close">&times;</span>
+		  		<h3>Galerie photo</h3>
+		  		<div class="gallerymodal">
+				</div>
+				<button id="ajoutbtn" type="button" value="">Ajouter une photo</button>
+			</div>
+			<div class="ajouterworks">
+				<i class="fa-solid fa-arrow-left"></i>
+				<span class="close">&times;</span>
+				<h3>Ajout photo</h3>
+				<form class="ajoutphoto" >
+					<i class="fa-regular fa-image"></i>
+					<button>
+						<p>+ Ajouter photo</p>
+						<input type="file" accept="image/png, image/jpeg">
+					</button>
+					<p>jpg, png : 4mo max</p>
+				</form>
+				<form class="classification" id="formajout">
+					<label for="Titre">Titre</label>
+					<input id="Titre" type="text" required>
+					<label for="categorie">Catégories</label>
+					<select name="Catégorie" id="categorie" required>
+						<option value=" " disabled selected></option>
+						<option value="Objets">Objets</option>
+						<option value="Appartements">Appartements</option>
+						<option value="Hôtels & restaurants">Hôtels & restaurants</option>
+					</select>
+				</form>
+				<button class="valideform" form="formajout" >valider</button>
+			</div>
+
+			
+		</div>
+	  </div>
 </main>
 
 <footer>
