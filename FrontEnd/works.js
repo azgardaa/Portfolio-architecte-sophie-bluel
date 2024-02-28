@@ -99,18 +99,30 @@ async function modalworks(url) {
     .then(function (works) {
       document.querySelector(".gallerymodal").innerHTML = "";
       genererworkmodal(works);
-
       /* gestion de la suppression des photos */
-
       const btnsuppr = document.querySelectorAll(".fa-trash-can");
       btnsuppr.forEach(async function (supprwork) {
         supprwork.addEventListener("click", async function (event) {
           event.preventDefault();
+          event.stopPropagation();
           const data = JSON.parse(localStorage.getItem("data"));
-          fetch(`http://localhost:5678/api/works/${supprwork.value}`, {
+
+          await fetch(`http://localhost:5678/api/works/${supprwork.value}`, {
             method: "DELETE",
             headers: { Authorization: `Bearer ${data.token}` },
-          });
+          })
+            .then(async function (response) {
+              if (response.ok) {
+                supprwork.parentNode.remove();
+                console.log("Suppression effectuée avec succès");
+                majworks();
+              } else {
+                throw new Error("La suppression a échoué");
+              }
+            })
+            .catch(async function (error) {
+              console.error("Erreur lors de la suppression :", error);
+            });
         });
       });
     });
@@ -146,6 +158,7 @@ boutonajout.addEventListener("click", function (event) {
   document.querySelector(".photopreview").innerHTML = "";
   document.getElementById("Titre").value = "";
   btnphoto.style.display = "block";
+  document.getElementById("categorie").value = "";
 });
 const btnretour = document.querySelector(".fa-arrow-left");
 btnretour.addEventListener("click", function (event) {
@@ -216,9 +229,11 @@ form.addEventListener("submit", function (event) {
     },
   })
     .then((response) => {
-      console.log(response);
       if (response.ok) {
-        return response.json();
+        contenu1.style.display = "flex";
+        contenu2.style.display = "none";
+        majworksmodal();
+        majworks();
       } else {
         throw new Error("Erreur lors de la création de la ressource");
       }
@@ -230,3 +245,15 @@ form.addEventListener("submit", function (event) {
       console.error("Erreur :", error);
     });
 });
+
+/* Mise a jour des elements du dom hors modal*/
+function majworks() {
+  document.querySelector(".gallery").innerHTML = "";
+  getWorks(url);
+}
+
+/* Mise a jour des elements du dom modal*/
+function majworksmodal() {
+  document.querySelector(".gallery").innerHTML = "";
+  modalworks(url);
+}
