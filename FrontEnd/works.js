@@ -170,7 +170,8 @@ closeButtons.forEach(function (closeButton) {
   });
 });
 
-/* gestion de l'ajout des photos */
+/* previsualisation de la photo */
+
 const file = document.querySelector(".file");
 const preview = document.querySelector(".photopreview");
 const btnphoto = document.querySelector(".btnphoto");
@@ -189,4 +190,43 @@ file.addEventListener("change", function () {
     reader.readAsDataURL(this.files[0]);
     btnphoto.style.display = "none";
   }
+});
+
+/* gestion de l'ajout des photos */
+
+const form = document.getElementById("formajout");
+form.addEventListener("submit", function (event) {
+  event.preventDefault();
+
+  const titre = document.getElementById("Titre").value;
+  const categorie = document.getElementById("categorie").value;
+  const photo = document.querySelector(".file").files[0];
+  const data = JSON.parse(localStorage.getItem("data"));
+  const formData = new FormData();
+  formData.append("title", titre);
+  formData.append("category", categorie);
+  formData.append("image", photo);
+  console.log(formData);
+
+  fetch(url, {
+    method: "POST",
+    body: formData,
+    headers: {
+      Authorization: `Bearer ${data.token}`,
+    },
+  })
+    .then((response) => {
+      console.log(response);
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error("Erreur lors de la création de la ressource");
+      }
+    })
+    .then((data) => {
+      console.log("Ressource créée avec succès :", data);
+    })
+    .catch((error) => {
+      console.error("Erreur :", error);
+    });
 });
