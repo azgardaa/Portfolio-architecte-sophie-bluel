@@ -18,13 +18,13 @@
 		<a href="#"><i class="fa-solid fa-pen-to-square"></i><p> mode édition</p></a>
 	</div>
 	<div class="barrenav">
-		<a class="titre" href="/FrontEnd/index.html"><h1>Sophie Bluel <span>Architecte d'intérieur</span></h1></a>
+		<a class="titre" href="index.html"><h1>Sophie Bluel <span>Architecte d'intérieur</span></h1></a>
 		<nav>
 			<ul>
-				<li><a href="#portfolio">projets</a></li></a>
+				<li><a href="#portfolio">projets</a></li>
 				<li><a href="#contact">contact</a></li>
-				<li class="login"><a href="/FrontEnd/connexion.html" >login</a></li>
-				<li class="logout"><a href="/FrontEnd/index.html">logout</a></li>
+				<li class="login"><a href="connexion.html" >login</a></li>
+				<li class="logout"><a href="index.html">logout</a></li>
 				<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 			</ul>
 		</nav>
@@ -85,9 +85,9 @@
 				<form class="ajoutphoto" >
 					<i class="fa-regular fa-image"></i>
 					<button class="btnphoto">
-						<p>+ Ajouter photo</p>
+						+ Ajouter photo
+						</button>
 						<input class="file" type="file" accept="image/png, image/jpeg" required>
-					</button>
 					<p>jpg, png : 4mo max</p>
 					<div class="photopreview"></div>
 				</form>
@@ -97,7 +97,6 @@
 					<input id="Titre" type="text" required>
 					<label for="categorie">Catégories</label>
 					<select name="Catégorie" id="categorie" required>
-						<option value="" disabled selected></option>
 						<option value="1">Objets</option>
 						<option value="2">Appartements</option>
 						<option value="3">Hôtels & restaurants</option>

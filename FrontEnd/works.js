@@ -159,6 +159,7 @@ boutonajout.addEventListener("click", function (event) {
   document.getElementById("Titre").value = "";
   btnphoto.style.display = "block";
   document.getElementById("categorie").value = "";
+  boutonsubmit.style.backgroundColor = "#A7A7A7";
 });
 const btnretour = document.querySelector(".fa-arrow-left");
 btnretour.addEventListener("click", function (event) {
@@ -208,6 +209,20 @@ file.addEventListener("change", function () {
 /* gestion de l'ajout des photos */
 
 const form = document.getElementById("formajout");
+const boutonsubmit = document.querySelector(".valideform");
+
+form.addEventListener("input", function () {
+  const titreValue = document.getElementById("Titre").value;
+  const categorieValue = document.getElementById("categorie").value;
+  const photoValue = document.querySelector(".file").files[0];
+
+  if (titreValue && categorieValue && photoValue) {
+    boutonsubmit.style.backgroundColor = "#1D6154";
+  } else {
+    boutonsubmit.style.backgroundColor = "";
+  }
+});
+
 form.addEventListener("submit", function (event) {
   event.preventDefault();
 

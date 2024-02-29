@@ -433,6 +433,7 @@ input[type="submit"]{
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	position: relative;
 	width: 70%;
 	background-color: #E8F1F6;
 	height: 169px;
@@ -440,17 +441,19 @@ input[type="submit"]{
 	padding: 0 10px;
   }
   .ajoutphoto button {
-	position: relative; /* Position relative pour que les éléments absolus soient positionnés par rapport à ce bouton */
+	 
     overflow: hidden;
 	border: none;
 	border-radius: 10% / 50%;
 	background-color: #CBD6DC;
 	width: 180px;
 	margin: 10px;
+	padding: 10px;
+	cursor: pointer;
   } 
   .ajoutphoto input{
 	z-index: 1;
-	position: absolute; /* Position absolue pour placer l'élément input par-dessus le texte */
+	position: absolute; 
     top: 0;
     left: 0;
     opacity: 0; 
@@ -458,13 +461,11 @@ input[type="submit"]{
     height: 100%;
     cursor: pointer; 
   }
-  .ajoutphoto button p {
-	background-color: #CBD6DC;
+  .ajoutphoto button  {
 	color: #306685;
 	font-family: 'work sans';
 	font-size: 14px;
 	font-weight: 500;
-	margin: 10px;
   }
   .ajoutphoto p {
 	background-color: #E8F1F6;
